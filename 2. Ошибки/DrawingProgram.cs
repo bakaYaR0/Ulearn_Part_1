@@ -63,16 +63,9 @@ namespace RefactorMe
 
             Drawer.SetPosition(x0, y0);
 
-            //Рисуем 1-ую сторону
             DrawSide1(size);
-
-            //Рисуем 2-ую сторону
             DrawSide2(size);
-
-            //Рисуем 3-ю сторону
             DrawSide3(size);
-
-            //Рисуем 4-ую сторону
             DrawSide4(size);
         }
 

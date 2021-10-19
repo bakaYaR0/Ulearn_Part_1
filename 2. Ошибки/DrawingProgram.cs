@@ -22,7 +22,7 @@ namespace RefactorMe
 
         public static void MakeIt(Pen pen, double length, double angle)
         {
-            //Делает шаг длиной dlina в направлении ugol и рисует пройденную траекторию
+            //Делает шаг длиной length в направлении angle и рисует пройденную траекторию
             var x1 = (float)(x + length * Math.Cos(angle));
             var y1 = (float)(y + length * Math.Sin(angle));
             graphics.DrawLine(pen, x, y, x1, y1);
@@ -39,6 +39,17 @@ namespace RefactorMe
 
     public class ImpossibleSquare
     {
+        const double Degrees0 = 0;
+        const double Degrees45 = Math.PI / 4;
+        const double Degrees90 = Math.PI / 2;
+        const double Degrees135 = 3 * Math.PI / 4;
+        const double Degrees180 = Math.PI;
+        const double Degrees225 = 5 * Math.PI / 4;
+        const double Degrees270 = 3 * Math.PI / 2;
+        const double Degrees315 = 7 * Math.PI / 4;
+        const double Degrees360 = 2 * Math.PI;
+
+
         public static void Draw(int width, int height, double rotationAngle, Graphics graphics)
         {
             // ugolPovorota пока не используется, но будет использоваться в будущем
@@ -47,46 +58,66 @@ namespace RefactorMe
             var size = Math.Min(width, height);
 
             var diagonal_length = Math.Sqrt(2) * (size * 0.375f + size * 0.04f) / 2;
-            var x0 = (float)(diagonal_length * Math.Cos(Math.PI / 4 + Math.PI)) + width / 2f;
-            var y0 = (float)(diagonal_length * Math.Sin(Math.PI / 4 + Math.PI)) + height / 2f;
+            var x0 = (float)(diagonal_length * Math.Cos(Degrees225)) + width / 2f;
+            var y0 = (float)(diagonal_length * Math.Sin(Degrees225)) + height / 2f;
 
             Drawer.SetPosition(x0, y0);
 
             //Рисуем 1-ую сторону
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, 0);
-            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Math.PI / 4);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Math.PI / 2);
-
-            Drawer.Change(size * 0.04f, -Math.PI);
-            Drawer.Change(size * 0.04f * Math.Sqrt(2), 3 * Math.PI / 4);
+            DrawSide1(size);
 
             //Рисуем 2-ую сторону
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, -Math.PI / 2);
-            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), -Math.PI / 2 + Math.PI / 4);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, -Math.PI / 2 + Math.PI);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, -Math.PI / 2 + Math.PI / 2);
-
-            Drawer.Change(size * 0.04f, -Math.PI / 2 - Math.PI);
-            Drawer.Change(size * 0.04f * Math.Sqrt(2), -Math.PI / 2 + 3 * Math.PI / 4);
+            DrawSide2(size);
 
             //Рисуем 3-ю сторону
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI);
-            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Math.PI + Math.PI / 4);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI + Math.PI);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Math.PI + Math.PI / 2);
-
-            Drawer.Change(size * 0.04f, Math.PI - Math.PI);
-            Drawer.Change(size * 0.04f * Math.Sqrt(2), Math.PI + 3 * Math.PI / 4);
+            DrawSide3(size);
 
             //Рисуем 4-ую сторону
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI / 2);
-            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Math.PI / 2 + Math.PI / 4);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI / 2 + Math.PI);
-            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Math.PI / 2 + Math.PI / 2);
+            DrawSide4(size);
+        }
 
-            Drawer.Change(size * 0.04f, Math.PI / 2 - Math.PI);
-            Drawer.Change(size * 0.04f * Math.Sqrt(2), Math.PI / 2 + 3 * Math.PI / 4);
+        public static void DrawSide1(double size)
+        {
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, 0);
+            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Degrees45);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Degrees180);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Degrees90);
+
+            Drawer.Change(size * 0.04f, -Math.PI);
+            Drawer.Change(size * 0.04f * Math.Sqrt(2), Degrees135);
+        }
+
+        public static void DrawSide2(double size)
+        {
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, -Degrees90);
+            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), -Degrees45);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Degrees90);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Degrees0);
+
+            Drawer.Change(size * 0.04f, -Degrees270);
+            Drawer.Change(size * 0.04f * Math.Sqrt(2), Degrees45);
+        }
+
+        public static void DrawSide3(double size)
+        {
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Degrees180);
+            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Degrees225);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Degrees360);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Degrees270);
+
+            Drawer.Change(size * 0.04f, Degrees0);
+            Drawer.Change(size * 0.04f * Math.Sqrt(2), Degrees315);
+        }
+
+        public static void DrawSide4(double size)
+        {
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Math.PI / 2);
+            Drawer.MakeIt(Pens.Yellow, size * 0.04f * Math.Sqrt(2), Degrees135);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f, Degrees270);
+            Drawer.MakeIt(Pens.Yellow, size * 0.375f - size * 0.04f, Degrees180);
+
+            Drawer.Change(size * 0.04f, -Degrees90);
+            Drawer.Change(size * 0.04f * Math.Sqrt(2), Degrees225);
         }
     }
 }

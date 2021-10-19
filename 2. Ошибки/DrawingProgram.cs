@@ -52,7 +52,7 @@ namespace RefactorMe
 
         public static void Draw(int width, int height, double rotationAngle, Graphics graphics)
         {
-            // ugolPovorota пока не используется, но будет использоваться в будущем
+            // rotationAngle пока не используется, но будет использоваться в будущем
             Drawer.Initialize(graphics);
 
             var size = Math.Min(width, height);

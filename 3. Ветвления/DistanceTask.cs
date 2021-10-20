@@ -4,10 +4,10 @@ namespace DistanceTask
 {
 	public static class DistanceTask
 	{
-		// Расстояние от точки (x, y) до отрезка с координатами (ax, ay), (bx, by)
+		// Расстояние от точки (x, y) до отрезкa с координатами (ax, ay), (bx, by)
 		public static double GetDistanceToSegment(double ax, double ay, double bx, double by, double x, double y)
 		{
-            // Сохраним разности для упрощения
+			// Сохраним разности для упрощения
             double A = x - ax;
             double B = x - bx;
             double C = y - ay;

@@ -22,7 +22,7 @@ namespace DistanceTask
             else if ((A * G + C * H) < 0 || (B * E + D * F) < 0)
                 return Math.Min(Math.Sqrt(A * A + C * C), Math.Sqrt(B * B + D * D));
             else
-               return Math.Abs(G * C - H * A) / Math.Sqrt(G * G + H * H);
+               	return Math.Abs(G * C - H * A) / Math.Sqrt(G * G + H * H);
         }
     }
 }
